@@ -1,0 +1,8 @@
+{
+    "WillLuke.nextjs.addTypesOnSave": true,
+    "WillLuke.nextjs.hasPrompted": true,
+    "nxConsole.nxWorkspacePath": "",
+    "conventionalCommits.scopes": [
+        "DevEnvironment"
+    ]
+}

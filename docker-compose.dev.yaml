@@ -1,4 +1,17 @@
 services:
+  #postiz-dev:
+  #  build:  //TODO 2 - intégrer le script et le build dockerfile.dev pour Tiltfile + mod TiltFile
+  #  container_name: postiz-dev
+  #  restart: always
+  #  volumes:
+  #    - ./dev-data/postiz/config/:/config/
+  #    - ./dev-data/postiz/uploads:/uploads/
+  #  ports:
+  #    - 5000:5000
+  #    - 3000:3000
+  #    - 4200:4200
+  #  networks:
+  #    - postiz-network
   postiz-postgres:
     # ref: https://hub.docker.com/_/postgres
     image: postgres:17-alpine # 17.0
@@ -9,7 +22,7 @@ services:
       POSTGRES_USER: postiz-local
       POSTGRES_DB: postiz-db-local
     volumes:
-      - postgres-volume:/var/lib/postgresql/data
+      - ./dev-data/postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
@@ -19,8 +32,29 @@ services:
     image: redis:7-alpine # 7.4.0
     container_name: postiz-redis
     restart: always
+    healthcheck:
+      test: redis-cli ping
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - ./dev-data/redis:/data
     ports:
       - 6379:6379
+    networks:
+      - postiz-network
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: 'nginx-proxy-manager'
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+    volumes:
+      - ./dev-data/npm/data:/data
+      - ./dev-data/npm/letsencrypt:/etc/letsencrypt
     networks:
       - postiz-network
   postiz-pg-admin:
@@ -44,15 +78,10 @@ services:
     ports:
       - "5540:5540"
     volumes:
-      - redisinsight:/data
+      - ./dev-data/redisinsight:/data
     networks:
       - postiz-network
     restart: always
-
-volumes:
-  redisinsight:
-  postgres-volume:
-    external: false
 
 networks:
   postiz-network:
