@@ -4,7 +4,8 @@
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist"]
     },
     "lint": {
       "cache": true,
@@ -36,6 +37,38 @@
         "{workspaceRoot}/.eslintignore",
         "{workspaceRoot}/eslint.config.js"
       ]
+    },
+    "build:frontend": {
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true
+    },
+    "dev": {
+      "cache": true
+    },
+    "dev:stripe": {
+      "cache": true
+    },
+    "dev:frontend": {
+      "cache": true
+    },
+    "dev:backend": {
+      "cache": true
+    },
+    "dev:workers": {
+      "cache": true
+    },
+    "dev:cron": {
+      "cache": true
+    },
+    "dev:docker": {
+      "cache": true
+    },
+    "docker-build": {
+      "cache": true
+    },
+    "@nx/vite:test": {
+      "cache": true,
+      "inputs": ["default", "^default"]
     }
   },
   "generators": {
@@ -60,5 +93,7 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "defaultBase": "main",
+  "nxCloudId": "670a0a4eb4f5c17242034380"
 }
