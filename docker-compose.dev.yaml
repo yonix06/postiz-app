@@ -1,4 +1,22 @@
 services:
+  postiz-dev:
+    container_name: postiz-dev
+    image: localhost/postiz-devcontainer
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: devcontainer
+    volumes:
+      - ./dev-data/postiz-devcontainer/logs:/logs/
+      - ./dev-data/postiz-devcontainer/config:/config
+      - ./dev-data/postiz-devcontainer/uploads:/uploads
+      - ./dev-data/postiz-devcontainer/app:/app
+    ports:
+      - 5000:5000
+      - 4200:4200
+      - 3000:3000
+    networks:
+      - postiz-network
   postiz-postgres:
     # ref: https://hub.docker.com/_/postgres
     image: postgres:17-alpine # 17.0
@@ -10,7 +28,7 @@ services:
       POSTGRES_USER: postiz-local
       POSTGRES_DB: postiz-db-local
     volumes:
-      - /dev-data/postgres:/var/lib/postgresql/data
+      - ./dev-data/postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
@@ -31,7 +49,7 @@ services:
       timeout: 3s
       retries: 3
     volumes:
-      - /dev-data/redis:/data
+      - ./dev-data/redis:/data
     ports:
       - 6379:6379
     networks:

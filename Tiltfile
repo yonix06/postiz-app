@@ -1,16 +1,18 @@
 # -*- mode: Python -*-
 
-# Enforce a minimum Tilt version, so labels are supported //TODO 3 - voir TO DO 2
+# Enforce a minimum Tilt version, so labels are supported
 # https://docs.tilt.dev/api.html#api.version_settings
 version_settings(constraint='>=0.22.1')
 
-docker_compose('docker-compose.dev.yml')
+docker_compose('docker-compose.dev.yaml')
 
 docker_build(
   # Image name - must match the image in the docker-compose file
   'localhost/postiz-devcontainer',
   # Docker context
   '.',
+  # Path to the Dockerfile
+  './Dockerfile.dev',
   live_update = [
     # Sync local files into the container.
     sync('.', '/app'),
