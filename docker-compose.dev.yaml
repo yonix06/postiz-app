@@ -1,35 +1,28 @@
 services:
-  #postiz-dev:
-  #  build:  //TODO 2 - intégrer le script et le build dockerfile.dev pour Tiltfile + mod TiltFile
-  #  container_name: postiz-dev
-  #  restart: always
-  #  volumes:
-  #    - ./dev-data/postiz/config/:/config/
-  #    - ./dev-data/postiz/uploads:/uploads/
-  #  ports:
-  #    - 5000:5000
-  #    - 3000:3000
-  #    - 4200:4200
-  #  networks:
-  #    - postiz-network
   postiz-postgres:
     # ref: https://hub.docker.com/_/postgres
     image: postgres:17-alpine # 17.0
     container_name: postiz-postgres
     restart: always
+    privileged: true
     environment:
       POSTGRES_PASSWORD: postiz-local-pwd
       POSTGRES_USER: postiz-local
       POSTGRES_DB: postiz-db-local
     volumes:
-      - ./dev-data/postgres:/var/lib/postgresql/data
+      - /dev-data/postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
       - postiz-network
+    healthcheck:
+      test: pg_isready -U postiz-user -d postiz-db-local
+      interval: 10s
+      timeout: 3s
+      retries: 3
   postiz-redis:
     # ref: https://hub.docker.com/_/redis
-    image: redis:7-alpine # 7.4.0
+    image: redis:7.4 # 7.4.0
     container_name: postiz-redis
     restart: always
     healthcheck:
@@ -38,7 +31,7 @@ services:
       timeout: 3s
       retries: 3
     volumes:
-      - ./dev-data/redis:/data
+      - /dev-data/redis:/data
     ports:
       - 6379:6379
     networks:

@@ -14,10 +14,17 @@ docker_build(
   live_update = [
     # Sync local files into the container.
     sync('.', '/app'),
+    sync('libraries', '/app/libraries'),
+    sync('/apps', '/app/apps'),
+    sync('nx.json', '/app/nx.json'),
+    sync('tsconfig.base.json', '/app/tsconfig.base.json'),
+    sync('package.json', '/app/package.json'),
+    sync('package-lock.json', '/app/package-lock.json'),
     sync('/var/docker/entrypoint.sh', '/app/entrypoint.sh'),
     sync('/var/docker/supervisord.conf', '/etc/supervisord.conf'),
     sync('/var/docker/supervisord', '/app/supervisord_available_configs/'),
     sync('/var/docker/Caddyfile', '/app/Caddyfile'),
+    sync('.env', '/config/postiz.env'),
 
 
     # Re-run npm install whenever package.json changes.

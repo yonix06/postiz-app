@@ -1,5 +1,10 @@
 {
   "features": {
+    "ghcr.io/audacioustux/devcontainers/common-utils-extras:1": {
+      "version": "1.2.1",
+      "resolved": "ghcr.io/audacioustux/devcontainers/common-utils-extras@sha256:9946424543808fcaab69348b413b7d06b0787a722555a93c9a85f414299fb680",
+      "integrity": "sha256:9946424543808fcaab69348b413b7d06b0787a722555a93c9a85f414299fb680"
+    },
     "ghcr.io/bdsoha/devcontainers/custom-root-ca:1": {
       "version": "1.3.0",
       "resolved": "ghcr.io/bdsoha/devcontainers/custom-root-ca@sha256:af5f8549f3e5c8334d763a27a1f9bc6e75259dcd180b8dc681c85213d8856ef9",
@@ -47,6 +52,11 @@
       "version": "1.6.4",
       "resolved": "ghcr.io/devcontainers/features/python@sha256:046a904b940e1793327369f57f4b0a7d89febbdd9e77086a70feffdfa564f888",
       "integrity": "sha256:046a904b940e1793327369f57f4b0a7d89febbdd9e77086a70feffdfa564f888"
+    },
+    "ghcr.io/eliises/devcontainer-features/devcontainers-cli:1": {
+      "version": "1.0.0",
+      "resolved": "ghcr.io/eliises/devcontainer-features/devcontainers-cli@sha256:a4e321fcd89ea7fe6b1eea98e98f5ccc47d4be525fcfa4299cccf2c6aafefa21",
+      "integrity": "sha256:a4e321fcd89ea7fe6b1eea98e98f5ccc47d4be525fcfa4299cccf2c6aafefa21"
     },
     "ghcr.io/gvatsal60/dev-container-features/pre-commit:1": {
       "version": "1.0.6",
