@@ -23,7 +23,7 @@ jobs:
     strategy: 
       matrix:
         include:
-          - runnertags: self-hosted
+          - runnertags: ubuntu-latest
             arch: amd64
          # - runnertags: [self-hosted, ARM64]
          #   arch: arm64
