@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-containers-common:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       containerver: ${{ steps.getcontainerver.outputs.containerver }}
     steps:
@@ -25,8 +25,8 @@ jobs:
         include:
           - runnertags: self-hosted
             arch: amd64
-          - runnertags: [self-hosted, ARM64]
-            arch: arm64
+         # - runnertags: [self-hosted, ARM64]
+         #   arch: arm64
 
     runs-on: ${{ matrix.runnertags }}
     steps:
@@ -80,6 +80,5 @@ jobs:
           docker manifest create \
             ghcr.io/yonix06/postiz-app:latest \
             ghcr.io/yonix06/postiz-app:amd64-${{ env.CONTAINERVER }} \
-            ghcr.io/yonix06/postiz-app:arm64-${{ env.CONTAINERVER }}
 
           docker manifest push ghcr.io/yonix06/postiz-app:latest
