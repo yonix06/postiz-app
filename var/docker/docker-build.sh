@@ -1,5 +1,5 @@
 #!/bin/bash
-//TODO - 1 wut?
+
 set -o xtrace
 
 docker rmi localhost/postiz || true
