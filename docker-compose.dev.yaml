@@ -1,5 +1,10 @@
 services:
+  # Dev container from Dockerfile.dev -----------------
   postiz-dev:
+    entrypoint:
+    - sleep
+    - infinity
+    init: true
     container_name: postiz-dev
     image: localhost/postiz-devcontainer
     build:
@@ -11,12 +16,14 @@ services:
       - ./dev-data/postiz-devcontainer/config:/config
       - ./dev-data/postiz-devcontainer/uploads:/uploads
       - ./dev-data/postiz-devcontainer/app:/app
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 5000:5000
       - 4200:4200
       - 3000:3000
     networks:
       - postiz-network
+  # Postiz Dev Deps -----------------
   postiz-postgres:
     # ref: https://hub.docker.com/_/postgres
     image: postgres:17-alpine # 17.0
@@ -54,6 +61,7 @@ services:
       - 6379:6379
     networks:
       - postiz-network
+  # Dev Tools -----------------
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: 'nginx-proxy-manager'
