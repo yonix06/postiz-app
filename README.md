@@ -100,7 +100,7 @@
 - Prisma (Default to PostgreSQL)
 - Redis (BullMQ)
 - Resend (email notifications)
-
+- Tilt (Docker/Kubernetes developpement tool)
 ## Quick Start
 To have the project up and running, please follow the [Quick Start Guide](https://docs.postiz.com/quickstart)
 

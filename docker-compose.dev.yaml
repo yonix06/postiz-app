@@ -1,26 +1,71 @@
 services:
+  postiz-dev:
+    container_name: postiz-dev
+    image: localhost/postiz-devcontainer
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: devcontainer
+    volumes:
+      - ./dev-data/postiz-devcontainer/logs:/logs/
+      - ./dev-data/postiz-devcontainer/config:/config
+      - ./dev-data/postiz-devcontainer/uploads:/uploads
+      - ./dev-data/postiz-devcontainer/app:/app
+    ports:
+      - 5000:5000
+      - 4200:4200
+      - 3000:3000
+    networks:
+      - postiz-network
   postiz-postgres:
     # ref: https://hub.docker.com/_/postgres
     image: postgres:17-alpine # 17.0
     container_name: postiz-postgres
     restart: always
+    privileged: true
     environment:
       POSTGRES_PASSWORD: postiz-local-pwd
       POSTGRES_USER: postiz-local
       POSTGRES_DB: postiz-db-local
     volumes:
-      - postgres-volume:/var/lib/postgresql/data
+      - ./dev-data/postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
       - postiz-network
+    healthcheck:
+      test: pg_isready -U postiz-user -d postiz-db-local
+      interval: 10s
+      timeout: 3s
+      retries: 3
   postiz-redis:
     # ref: https://hub.docker.com/_/redis
-    image: redis:7-alpine # 7.4.0
+    image: redis:7.4 # 7.4.0
     container_name: postiz-redis
     restart: always
+    healthcheck:
+      test: redis-cli ping
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - ./dev-data/redis:/data
     ports:
       - 6379:6379
+    networks:
+      - postiz-network
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: 'nginx-proxy-manager'
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+    volumes:
+      - ./dev-data/npm/data:/data
+      - ./dev-data/npm/letsencrypt:/etc/letsencrypt
     networks:
       - postiz-network
   postiz-pg-admin:
@@ -44,15 +89,10 @@ services:
     ports:
       - "5540:5540"
     volumes:
-      - redisinsight:/data
+      - ./dev-data/redisinsight:/data
     networks:
       - postiz-network
     restart: always
-
-volumes:
-  redisinsight:
-  postgres-volume:
-    external: false
 
 networks:
   postiz-network:

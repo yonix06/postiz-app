@@ -1,14 +1,64 @@
 {
 	"name": "Postiz Dev Container",
 	"image": "localhost/postiz-devcontainer",
-	"features": {},
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+		"ghcr.io/devcontainers/features/git:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/customink/codespaces-features/docker-log-level:1": {},
+		"ghcr.io/stuartleeks/dev-container-features/shell-history:0": {},
+		"ghcr.io/lentzi90/features/tilt:0": {},
+		"ghcr.io/devcontainers-community/npm-features/prettier:1": {},
+		"ghcr.io/bdsoha/devcontainers/custom-root-ca:1": {},
+		"ghcr.io/schlich/devcontainer-features/powerlevel10k:1": {},
+		"ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {},
+		"ghcr.io/gvatsal60/dev-container-features/pre-commit:1": {},
+		"ghcr.io/eliises/devcontainer-features/devcontainers-cli:1": {},
+		"ghcr.io/audacioustux/devcontainers/common-utils-extras:1": {}
+	},
 	"customizations": {
 		"vscode": {
 			"settings": {},
-			"extensions": []
+			"extensions": [
+				"ms-vscode-remote.remote-containers",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"nrwl.angular-console",
+				"firsttris.vscode-jest-runner",
+				"formulahendry.code-runner",
+				"vivaxy.vscode-conventional-commits",
+				"ms-azuretools.vscode-docker",
+				"IronGeek.vscode-env",
+				"waderyan.gitblame",
+				"mhutchie.git-graph",
+				"shaharkazaz.git-merger",
+				"howardzuo.vscode-git-tags",
+				"github.vscode-github-actions",
+				"michelemelluso.gitignore",
+				"heybourn.headwind",
+				"ms-vscode.live-server",
+				"VisualStudioExptTeam.vscodeintellicode",
+				"VisualStudioExptTeam.vscodeintellicode-completions",
+				"Zignd.html-css-class-completion",
+				"jevakallio.vscode-live-frame",
+				"christian-kohler.path-intellisense",
+				"ms-ossdata.vscode-postgresql",
+				"Prisma.prisma",
+				"AbianS.prisma-generate-uml",
+				"zenclabs.previewjs",
+				"WallabyJs.quokka-vscode",
+				"Gruntfuggly.todo-tree",
+				"aaron-bond.better-comments",
+				"bradlc.vscode-tailwindcss",
+				"tilt-dev.tiltfile",
+				"shardulm94.trailing-spaces",
+				"pflannery.vscode-versionlens",
+				"styled-components.vscode-styled-components"
+			]
 		}
 	},
-	"forwardPorts": ["4200:4200", "3000:3000"],
+	"forwardPorts": ["4200:4200", "3000:3000", "5000:5000"],
 	"mounts": ["source=/apps,destination=/apps/dist/,type=bind,consistency=cached"]
 }
 
