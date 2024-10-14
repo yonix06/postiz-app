@@ -23,10 +23,10 @@ jobs:
     strategy: 
       matrix:
         include:
-          - runnertags: ubuntu-latest
+          - runnertags: self-hosted
             arch: amd64
-          - runnertags: [self-hosted, AMD64]
-            arch: amd4
+          - runnertags: [self-hosted, ARM64]
+            arch: arm64
 
     runs-on: ${{ matrix.runnertags }}
     steps:
@@ -53,14 +53,14 @@ jobs:
         env: 
           CONTAINERVER: ${{ needs.build-containers-common.outputs.containerver }}
         run: |
-          docker tag localhost/postiz ghcr.io/gitroomhq/postiz-app:${{ matrix.arch }}-${{ env.CONTAINERVER }}
-          docker push ghcr.io/gitroomhq/postiz-app:${{ matrix.arch }}-${{ env.CONTAINERVER }}
+          docker tag localhost/postiz ghcr.io/yonix06/postiz-app:${{ matrix.arch }}-${{ env.CONTAINERVER }}
+          docker push ghcr.io/yonix06/postiz-app:${{ matrix.arch }}-${{ env.CONTAINERVER }}
 
-          docker tag localhost/postiz-devcontainer ghcr.io/gitroomhq/postiz-devcontainer:${{ env.CONTAINERVER }}
-          docker push ghcr.io/gitroomhq/postiz-devcontainer:${{ env.CONTAINERVER }}
+          docker tag localhost/postiz-devcontainer ghcr.io/yonix06/postiz-devcontainer:${{ env.CONTAINERVER }}
+          docker push ghcr.io/yonix06/postiz-devcontainer:${{ env.CONTAINERVER }}
 
-          docker tag ghcr.io/gitroomhq/postiz-devcontainer:${{ env.CONTAINERVER }} ghcr.io/gitroomhq/postiz-devcontainer:latest
-          docker push ghcr.io/gitroomhq/postiz-devcontainer:latest
+          docker tag ghcr.io/yonix06/postiz-devcontainer:${{ env.CONTAINERVER }} ghcr.io/yonix06/postiz-devcontainer:latest
+          docker push ghcr.io/yonix06/postiz-devcontainer:latest
 
   build-container-manifest:
     needs: [build-containers, build-containers-common]
@@ -78,8 +78,8 @@ jobs:
           CONTAINERVER: ${{ needs.build-containers-common.outputs.containerver }}
         run: |
           docker manifest create \
-            ghcr.io/gitroomhq/postiz-app:latest \
-            ghcr.io/gitroomhq/postiz-app:amd64-${{ env.CONTAINERVER }} \
-            ghcr.io/gitroomhq/postiz-app:arm64-${{ env.CONTAINERVER }}
+            ghcr.io/yonix06/postiz-app:latest \
+            ghcr.io/yonix06/postiz-app:amd64-${{ env.CONTAINERVER }} \
+            ghcr.io/yonix06/postiz-app:arm64-${{ env.CONTAINERVER }}
 
-          docker manifest push ghcr.io/gitroomhq/postiz-app:latest
+          docker manifest push ghcr.io/yonix06/postiz-app:latest
