@@ -1,4 +1,5 @@
 export const allTwoLevelSubdomain = [
+    ".duckdns.org",
     ".net.ac",
     ".gov.ac",
     ".org.ac",
