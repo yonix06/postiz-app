@@ -1,4 +1,5 @@
 services:
+  # Dev container from Dockerfile.dev -----------------
   postiz-dev:
     container_name: postiz-dev
     image: localhost/postiz-devcontainer
@@ -17,6 +18,7 @@ services:
       - 3000:3000
     networks:
       - postiz-network
+  # Postiz Dev Deps -----------------
   postiz-postgres:
     # ref: https://hub.docker.com/_/postgres
     image: postgres:17-alpine # 17.0
@@ -54,6 +56,7 @@ services:
       - 6379:6379
     networks:
       - postiz-network
+  # Dev Tools -----------------
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: 'nginx-proxy-manager'
